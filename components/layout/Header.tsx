@@ -1,5 +1,5 @@
+import { useEffect, useState, memo } from "react";
 import clsx from "clsx";
-import { useState } from "react";
 import { Link as LinkScroll } from "react-scroll";
 import Image from "next/image";
 
@@ -7,23 +7,38 @@ type NavlinkProps = {
   title: string;
 };
 
-const Navlink = ({ title }: NavlinkProps) => (
+const Navlink = memo(({ title }: NavlinkProps) => (
   <LinkScroll
     to={title.toLowerCase()}
     smooth
-    offset={-80}
-    duration={500}
+    spy={true}
+    offset={-100}
+    activeClass="nav-active"
     className="base-bold text-p4 uppercase transition-colors duration-500 cursor-pointer hover:text-p1 max-lg:my-4 max-lg:h5"
   >
     {title}
   </LinkScroll>
-);
+));
+Navlink.displayName = "Navlink";
 
 const Header = () => {
+  const [hasScrolled, setHasScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
+  useEffect(() => {
+    const handleScroll = () => setHasScrolled(window.scrollY > 32);
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <header className="fixed top-0 left-0 z-50 w-full py-10 bg-transparent">
+    <header
+      className={clsx(
+        "fixed top-0 left-0 z-50 w-full transition-all duration-500",
+        hasScrolled ? "py-2 bg-black-100 backdrop-blur-[8px]" : "py-10 max-lg:py-4"
+      )}
+    >
       <div className="container mx-auto flex h-14 items-center max-lg:px-5">
         {/* Logo - Mobile */}
         <a
@@ -49,9 +64,9 @@ const Header = () => {
         >
           <div className="max-lg:relative max-lg:flex max-lg:flex-col max-lg:min-h-screen max-lg:p-6 max-lg:overflow-hidden sidebar-before max-md:p-4">
             <nav className="max-lg:relative max-lg:z-10 max-lg:my-auto">
-              <ul className="flex items-center justify-center max-lg:block max-lg:px-0 gap-8">
+              <ul className="flex items-center justify-center gap-8 max-lg:block max-lg:px-0">
                 {/* Left Links */}
-                <li className="nav-li flex items-center gap-2">
+                <li className="nav-li flex items-center gap-2 ">
                   <Navlink title="Features" />
                   <span className="dot" />
                   <Navlink title="Pricing" />
@@ -61,7 +76,7 @@ const Header = () => {
                 <li className="nav-logo">
                   <LinkScroll
                     to="hero"
-                    offset={-100}
+                    offset={-250}
                     spy
                     smooth
                     className="max-lg:hidden transition-transform duration-500 cursor-pointer"
@@ -108,6 +123,7 @@ const Header = () => {
         {/* Mobile Menu Button */}
         <button
           aria-label={isOpen ? "Close menu" : "Open menu"}
+          aria-expanded={isOpen}
           className="lg:hidden z-10 size-10 border-2 border-s4/25 rounded-full flex justify-center items-center"
           onClick={() => setIsOpen((prev) => !prev)}
         >
