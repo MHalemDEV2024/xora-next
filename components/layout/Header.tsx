@@ -1,10 +1,15 @@
 import clsx from "clsx";
 import { useState } from "react";
 import { Link as LinkScroll } from "react-scroll";
+import Image from "next/image";
 
-const Navlink = ({ title }: { title: string }) => (
+type NavlinkProps = {
+  title: string;
+};
+
+const Navlink = ({ title }: NavlinkProps) => (
   <LinkScroll
-    to={title}
+    to={title.toLowerCase()}
     smooth
     offset={-80}
     duration={500}
@@ -14,15 +19,25 @@ const Navlink = ({ title }: { title: string }) => (
   </LinkScroll>
 );
 
-export const Header = () => {
+const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <header className="fixed top-0 left-0 z-50 w-full py-10">
+    <header className="fixed top-0 left-0 z-50 w-full py-10 bg-transparent">
       <div className="container mx-auto flex h-14 items-center max-lg:px-5">
         {/* Logo - Mobile */}
-        <a className="lg:hidden flex-1 cursor-pointer z-10">
-          <img src="/images/xora.svg" width={115} height={55} alt="logo" />
+        <a
+          href="#hero"
+          className="lg:hidden flex-1 cursor-pointer z-10"
+          aria-label="Go to homepage"
+        >
+          <Image
+            src="/images/xora.svg"
+            width={115}
+            height={55}
+            alt="Xora logo"
+            priority
+          />
         </a>
 
         {/* Navigation */}
@@ -34,12 +49,11 @@ export const Header = () => {
         >
           <div className="max-lg:relative max-lg:flex max-lg:flex-col max-lg:min-h-screen max-lg:p-6 max-lg:overflow-hidden sidebar-before max-md:p-4">
             <nav className="max-lg:relative max-lg:z-10 max-lg:my-auto">
-              <ul className="flex max-lg:block max-lg:px-0">
-
+              <ul className="flex items-center justify-center max-lg:block max-lg:px-0 gap-8">
                 {/* Left Links */}
-                <li className="nav-li">
-                  <Navlink title="features" />
-                  <div className="dot" />
+                <li className="nav-li flex items-center gap-2">
+                  <Navlink title="Features" />
+                  <span className="dot" />
                   <Navlink title="Pricing" />
                 </li>
 
@@ -52,30 +66,36 @@ export const Header = () => {
                     smooth
                     className="max-lg:hidden transition-transform duration-500 cursor-pointer"
                   >
-                    <img src="/images/xora.svg" width={160} height={55} alt="logo" />
+                    <Image
+                      src="/images/xora.svg"
+                      width={160}
+                      height={55}
+                      alt="Xora logo"
+                      priority
+                    />
                   </LinkScroll>
                 </li>
 
                 {/* Right Links */}
-                <li className="nav-li">
-                  <Navlink title="faq" />
-                  <div className="dot" />
+                <li className="nav-li flex items-center gap-2">
+                  <Navlink title="FAQ" />
+                  <span className="dot" />
                   <Navlink title="Download" />
                 </li>
               </ul>
             </nav>
 
             {/* Background Decoration (Mobile) */}
-            <div className="lg:hidden block absolute top-1/2 left-0 w-[960px] h-[380px] -translate-x-[290px] -translate-y-1/2 rotate-90">
-              <img
-                src="images/bg-outlines.svg"
+            <div className="lg:hidden absolute top-1/2 left-0 w-[960px] h-[380px] -translate-x-[290px] -translate-y-1/2 rotate-90">
+              <Image
+                src="/images/bg-outlines.svg"
                 width={960}
                 height={380}
                 alt="outline"
                 className="relative z-10"
               />
-              <img
-                src="images/bg-outlines-fill.png"
+              <Image
+                src="/images/bg-outlines-fill.png"
                 width={960}
                 height={380}
                 alt="outline fill"
@@ -87,17 +107,21 @@ export const Header = () => {
 
         {/* Mobile Menu Button */}
         <button
-          aria-label="Toggle menu"
+          aria-label={isOpen ? "Close menu" : "Open menu"}
           className="lg:hidden z-10 size-10 border-2 border-s4/25 rounded-full flex justify-center items-center"
           onClick={() => setIsOpen((prev) => !prev)}
         >
-          <img
+          <Image
             src={`/images/${isOpen ? "close" : "magic"}.svg`}
             alt={isOpen ? "Close menu" : "Open menu"}
-            className="size-1/2 object-contain"
+            width={20}
+            height={20}
+            className="object-contain"
           />
         </button>
       </div>
     </header>
   );
 };
+
+export default Header;
