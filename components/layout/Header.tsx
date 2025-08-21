@@ -35,7 +35,7 @@ export const Header = () => {
           <div className="max-lg:relative max-lg:flex max-lg:flex-col max-lg:min-h-screen max-lg:p-6 max-lg:overflow-hidden sidebar-before max-md:p-4">
             <nav className="max-lg:relative max-lg:z-10 max-lg:my-auto">
               <ul className="flex max-lg:block max-lg:px-0">
-              
+
                 {/* Left Links */}
                 <li className="nav-li">
                   <Navlink title="features" />
