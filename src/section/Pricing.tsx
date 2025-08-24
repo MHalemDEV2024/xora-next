@@ -6,7 +6,7 @@ import CountUp from 'react-countup';
 import Button from '../../components/common/Button';
 
 
-function Pricing() {
+const Pricing = () => {
   const [monthly, setMonthly] = useState(false);
 
   return (

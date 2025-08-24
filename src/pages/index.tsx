@@ -2,6 +2,7 @@ import  Header  from '../../components/layout/Header'
 import Hero from '../section/Hero'
 import  Features  from '../section/Features'
 import Pricing from '../section/Pricing'
+import Faq from '../section/Faq'
 
 export default function Home() {
   return (
@@ -10,6 +11,7 @@ export default function Home() {
       <Hero/>
       <Features/>
       <Pricing/>
+      <Faq/>
     </main>
   )
 }
