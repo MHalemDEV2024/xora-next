@@ -4,6 +4,7 @@ import  Features  from '../section/Features'
 import Pricing from '../section/Pricing'
 import Faq from '../section/Faq'
 import Testimonials from '@/section/Testimonials'
+import Download from '@/section/Download'
 
 export default function Home() {
   return (
@@ -14,6 +15,7 @@ export default function Home() {
       <Pricing/>
       <Faq/>
       <Testimonials/>
+      <Download/>
     </main>
   )
 }
