@@ -3,8 +3,9 @@ import Hero from '../section/Hero'
 import  Features  from '../section/Features'
 import Pricing from '../section/Pricing'
 import Faq from '../section/Faq'
-import Testimonials from '@/section/Testimonials'
-import Download from '@/section/Download'
+import Testimonials from '../section/Testimonials'
+import Download from '../section/Download'
+import Footer from '../../components/layout/Footer'
 
 export default function Home() {
   return (
@@ -16,6 +17,7 @@ export default function Home() {
       <Faq/>
       <Testimonials/>
       <Download/>
+      <Footer/>
     </main>
   )
 }
